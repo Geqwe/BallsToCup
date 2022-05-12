@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2568607745131415530}
   - component: {fileID: 2568607745131415533}
   - component: {fileID: 7048133677442900051}
+  - component: {fileID: -4832755996934315872}
+  - component: {fileID: -2267247154643957229}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -61,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d4c97fb6446bf094db6a53278613b81c, type: 2}
+  - {fileID: 2100000, guid: 7498bae23a486cb4b8f6877705c8df43, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,3 +114,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &-4832755996934315872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2568607745131415532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb882efa34abd614282615801c50f445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2267247154643957229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2568607745131415532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0a08de855871d4fbe07b4adbce3a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BallLeftTheTube: 0
