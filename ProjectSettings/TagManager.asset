@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tube
   - Ball
+  - Ground
   layers:
   - Default
   - TransparentFX
