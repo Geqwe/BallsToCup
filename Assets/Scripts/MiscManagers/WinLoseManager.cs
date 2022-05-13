@@ -22,7 +22,6 @@ public class WinLoseManager : MonoBehaviour
     }
 
     public void BallLeftTheTube() {
-        Debug.Log("lost ball");
         if(--_startingAmountOfBalls == 0) {
             StartCoroutine(CheckLoseAfterTime());
         }
