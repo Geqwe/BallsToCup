@@ -123,8 +123,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5344acc4119d2545bda6eba92b50d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragToRotateDisplay: {fileID: 0}
   _ballsLeftText: {fileID: 0}
+  StartLevelEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &3585096433999275100
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,9 +194,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d8611a065d60949bf00cfa25950231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loseScreen: {fileID: 0}
-  _winScreen: {fileID: 0}
-  _ballsLeftText: {fileID: 0}
+  WinEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  LoseEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &3585096434041679553
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3585096434067445406}
-  - component: {fileID: 4776374878257040349}
+  - component: {fileID: 691698247}
   m_Layer: 0
   m_Name: BallSpawnerManager
   m_TagString: Untagged
@@ -450,7 +503,7 @@ Transform:
   m_Father: {fileID: 3585096432844335780}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4776374878257040349
+--- !u!114 &691698247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -459,15 +512,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3585096434067445407}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0260ca117ea02a468e6ef03bb2ff515, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e7ffd2c61d1ec74798371095e9b4a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnWaitingTime: 0.1
   _ballPrefab: {fileID: 205603860777051924, guid: d05fbba9a9bb95c4686f55dee7c63224, type: 3}
+  _spawnWaitingTime: 0.1
   _ballColors:
   - {r: 0.8490566, g: 0.22027414, b: 0.22027414, a: 0}
   - {r: 0.2878248, g: 0.7924528, b: 0.33074626, a: 0}
   - {r: 0.128649, g: 0.1429525, b: 0.5566038, a: 0}
+  - {r: 0.8962264, g: 0.397492, b: 0.18093626, a: 0}
+  - {r: 0.8980392, g: 0.80718184, b: 0.18039218, a: 0}
 --- !u!1 &3585096434803593225
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,18 +567,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelProperties:
-  - AmountOfBalls: 20
+  - AmountOfBalls: 15
+    AmountOfBallsNeededToWin: 15
+    TubePrefab: {fileID: 4906708610647185865, guid: 43181234978bdfb4290e2be3c08b8ab7, type: 3}
+    TubePosition: {x: 2, y: 4, z: 0}
+  - AmountOfBalls: 15
     AmountOfBallsNeededToWin: 15
     TubePrefab: {fileID: 5842701546347920379, guid: 76bd306eef11f5a4aa3a91c7696ec241, type: 3}
-    TubePosition: {x: 1.5, y: 2, z: 0}
-  - AmountOfBalls: 25
-    AmountOfBallsNeededToWin: 25
-    TubePrefab: {fileID: 4555753442232189714, guid: d648bf0055f72e8458ed0e826c1434bc, type: 3}
-    TubePosition: {x: -1, y: 2, z: 0}
-  - AmountOfBalls: 35
-    AmountOfBallsNeededToWin: 30
+    TubePosition: {x: 2.5, y: 3, z: 0}
+  - AmountOfBalls: 20
+    AmountOfBallsNeededToWin: 15
     TubePrefab: {fileID: 4255519651853430913, guid: 3f888f6ebe82664458116e7df9d1048d, type: 3}
-    TubePosition: {x: 0, y: 2, z: 0}
+    TubePosition: {x: -2, y: 3, z: 0}
+  - AmountOfBalls: 25
+    AmountOfBallsNeededToWin: 20
+    TubePrefab: {fileID: 4555753442232189714, guid: d648bf0055f72e8458ed0e826c1434bc, type: 3}
+    TubePosition: {x: 0, y: 3, z: 0}
   CurrentLevelProperties:
     AmountOfBalls: 0
     AmountOfBallsNeededToWin: 0

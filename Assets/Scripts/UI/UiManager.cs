@@ -34,7 +34,8 @@ public class UiManager : MonoBehaviour
     }
 
     private void OnBallsTextUpdate(int ballsWon, int amountOfBallsNeededToWin) {
-        _ballsLeftText.text = ballsWon+"/"+ballsWon;
+        _ballsLeftText.text = ballsWon+"/"+amountOfBallsNeededToWin;
+        
         LeanTween.scale(_ballsLeftText.gameObject, transform.localScale * 1.2f, 0.5f).setEasePunch()
             .setOnComplete(() => _ballsLeftText.rectTransform.localScale = Vector3.one);
     }

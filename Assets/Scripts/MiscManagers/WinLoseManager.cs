@@ -37,7 +37,6 @@ public class WinLoseManager : MonoBehaviour
         if(--_startingAmountOfBalls == 0) {
             StartCoroutine(CheckLoseAfterTime());
         }
-        BallsTextUpdate?.Invoke(_ballsWon, _amountOfBallsNeededToWin);
     }
 
     private IEnumerator CheckLoseAfterTime() {
