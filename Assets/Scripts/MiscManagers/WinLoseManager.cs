@@ -1,67 +1,74 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
-using TMPro;
+using System;
+using Ball;
+using Audio;
 
 public class WinLoseManager : MonoBehaviour
 {
-    private int _startingAmountOfBalls;
-    private int _amountOfBallsNeededToWin;
-    private int _ballsWon;
+    private int _startingAmountOfBalls, _amountOfBallsNeededToWin, _ballsWon;
     private bool _won;
 
-    [SerializeField] private GameObject _loseScreen, _winScreen;
-    [SerializeField] private TMP_Text _ballsLeftText;
+    public UnityEvent WinEvent, LoseEvent;
+    public event Action<int,int> BallsTextUpdate;
 
     void Start()
     {
-        _startingAmountOfBalls = FindObjectOfType<LevelManager>().CurrentLevelProperties.AmountOfBalls;
-        Debug.Log(_startingAmountOfBalls);
-        _amountOfBallsNeededToWin = FindObjectOfType<LevelManager>().CurrentLevelProperties.AmountOfBallsNeededToWin;
-        Debug.Log(_amountOfBallsNeededToWin);
-        BallsTextUpdate();
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+
+        _startingAmountOfBalls = levelManager.CurrentLevelProperties.AmountOfBalls;
+        _amountOfBallsNeededToWin = levelManager.CurrentLevelProperties.AmountOfBallsNeededToWin;
+
+        BallsTextUpdate?.Invoke(_ballsWon, _amountOfBallsNeededToWin);
     }
 
-    public void BallLeftTheTube() {
+    private void OnEnable() {
+        BallOutOfTube.BallLeftTheCube += OnBallLeftTheTube;
+        BallWinCollider.BallWon += OnBallWon;
+    }
+
+    private void OnDisable() {
+        BallOutOfTube.BallLeftTheCube -= OnBallLeftTheTube;
+        BallWinCollider.BallWon -= OnBallWon;
+    }
+
+    private void OnBallLeftTheTube() {
         if(--_startingAmountOfBalls == 0) {
             StartCoroutine(CheckLoseAfterTime());
         }
-        BallsTextUpdate();
+        BallsTextUpdate?.Invoke(_ballsWon, _amountOfBallsNeededToWin);
     }
 
     private IEnumerator CheckLoseAfterTime() {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         if(!_won) {
             Lose();
         }
     }
 
     private void Lose() {
-        _loseScreen.SetActive(true);
+        LoseEvent?.Invoke();
         GenericAudioManager.Instance.PlaySfx("Lose");
     }
 
-    public void WinBall() {
+    public void OnBallWon() {
         if(++_ballsWon == _amountOfBallsNeededToWin) {
             StartCoroutine(CheckWinAfterTime());
         }
-        BallsTextUpdate();
-        LeanTween.scale(_ballsLeftText.gameObject, transform.localScale * 1.2f, 0.5f).setEasePunch()
-            .setOnComplete(() => _ballsLeftText.rectTransform.localScale = Vector3.one);
+        
+        BallsTextUpdate?.Invoke(_ballsWon, _amountOfBallsNeededToWin);
         GenericAudioManager.Instance.PlaySfx("AddedBall");
     }
 
     private IEnumerator CheckWinAfterTime() {
-        yield return new WaitForSeconds(1f);
         _won = true;
+        yield return new WaitForSeconds(1f);
         Win();
     }
 
     private void Win() {
-        _winScreen.SetActive(true);
+        WinEvent?.Invoke();
         GenericAudioManager.Instance.PlaySfx("Win");
-    }
-
-    private void BallsTextUpdate() {
-        _ballsLeftText.text = _ballsWon+"/"+_amountOfBallsNeededToWin;
     }
 }

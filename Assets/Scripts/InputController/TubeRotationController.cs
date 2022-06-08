@@ -12,10 +12,15 @@ public class TubeRotationController : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButton(0)) {
-            float rotX = Input.GetAxis("Mouse X") * _rotationSpeed * Time.fixedDeltaTime * Mathf.Rad2Deg;
-            float rotY = Input.GetAxis("Mouse Y") * _rotationSpeed * Time.fixedDeltaTime * Mathf.Rad2Deg;
-
-            _tubeTransform.Rotate(Vector3.forward, rotX);
+            RotateTube();
         }
+    }
+
+    private void RotateTube() {
+        float rotX = Input.GetAxis("Mouse X") * _rotationSpeed * Time.fixedDeltaTime * Mathf.Rad2Deg;
+        float rotY = Input.GetAxis("Mouse Y") * _rotationSpeed * Time.fixedDeltaTime * Mathf.Rad2Deg;
+
+        _tubeTransform.Rotate(Vector3.forward, rotX);
+        _tubeTransform.Rotate(Vector3.forward, rotY);
     }
 }

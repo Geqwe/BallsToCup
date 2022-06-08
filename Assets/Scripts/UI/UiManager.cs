@@ -1,20 +1,41 @@
 using UnityEngine;
+using System;
+using UnityEngine.Events;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _dragToRotateDisplay, _ballsLeftText;
+    [SerializeField] private TMP_Text _ballsLeftText;
+
+    public UnityEvent StartLevelEvent;
+    public event Action NextLevelEvent, RestartLevelEvent;
+    
+    private WinLoseManager _winLoseManager;
+
+    private void OnEnable() {
+        _winLoseManager = FindObjectOfType<WinLoseManager>();
+        _winLoseManager.BallsTextUpdate += OnBallsTextUpdate;
+    }
+
+    private void OnDisable() {
+       _winLoseManager.BallsTextUpdate -= OnBallsTextUpdate;
+    }
 
     public void HideDragToRotateUi() {
-        _dragToRotateDisplay.SetActive(false);
-        _ballsLeftText.SetActive(true);
-        FindObjectOfType<LevelManager>().StartLevel();
+        StartLevelEvent?.Invoke();
     }
 
     public void NextLevel() {
-        FindObjectOfType<LevelManager>().NextLevel();
+        NextLevelEvent?.Invoke();
     }
 
     public void RestartLevel() {
-        FindObjectOfType<LevelManager>().RestartScene();
+        RestartLevelEvent?.Invoke();
+    }
+
+    private void OnBallsTextUpdate(int ballsWon, int amountOfBallsNeededToWin) {
+        _ballsLeftText.text = ballsWon+"/"+ballsWon;
+        LeanTween.scale(_ballsLeftText.gameObject, transform.localScale * 1.2f, 0.5f).setEasePunch()
+            .setOnComplete(() => _ballsLeftText.rectTransform.localScale = Vector3.one);
     }
 }

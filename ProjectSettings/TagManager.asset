@@ -7,6 +7,8 @@ TagManager:
   - Tube
   - Ball
   - Ground
+  - TubeExit
+  - BallWin
   layers:
   - Default
   - TransparentFX

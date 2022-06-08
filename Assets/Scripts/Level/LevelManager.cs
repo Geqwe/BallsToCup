@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelProperties[] _levelProperties;
     public LevelProperties CurrentLevelProperties;
     public static event Action LevelStart;
+    private UiManager _uiManager;
 
     void Awake()
     {
@@ -18,11 +19,25 @@ public class LevelManager : MonoBehaviour
         Instantiate(CurrentLevelProperties.TubePrefab, CurrentLevelProperties.TubePosition, Quaternion.identity);
     }
 
-    public void StartLevel() {
+    private void OnEnable() {
+        _uiManager = FindObjectOfType<UiManager>();
+        
+        _uiManager.StartLevelEvent.AddListener(OnStartLevel);
+        _uiManager.NextLevelEvent += OnNextLevel;
+        _uiManager.RestartLevelEvent += OnRestartScene;
+    }
+
+    private void OnDisable() {
+        _uiManager.StartLevelEvent.RemoveListener(OnStartLevel);
+        _uiManager.NextLevelEvent -= OnNextLevel;
+        _uiManager.RestartLevelEvent -= OnRestartScene;
+    }
+
+    private void OnStartLevel() {
         LevelStart?.Invoke();
     }
 
-    public void NextLevel() {
+    private void OnNextLevel() {
         int levelIndex = PlayerPrefs.GetInt("Level",0);
 
         if(levelIndex==_levelProperties.Length-1) { //at the end of the levels go back to the start for now
@@ -33,10 +48,10 @@ public class LevelManager : MonoBehaviour
             PlayerPrefs.SetInt("Level",++levelIndex);
         }
 
-        RestartScene();
+        OnRestartScene();
     }
 
-    public void RestartScene() {
+    private void OnRestartScene() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

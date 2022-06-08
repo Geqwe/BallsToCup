@@ -1,12 +1,18 @@
 using UnityEngine;
+using System;
 
-public class BallWinCollider : MonoBehaviour
-{
-    private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("Ball")) {
-            if(!other.GetComponent<BallOutOfTheCube>().BallInFlask) {
-                other.GetComponent<BallOutOfTheCube>().BallInFlask = true;
-                FindObjectOfType<WinLoseManager>().WinBall();
+namespace Ball {
+    public class BallWinCollider : MonoBehaviour
+    {
+        private bool _ballInFlask;
+        public static event Action BallWon;
+
+        private void OnTriggerEnter2D(Collider2D other) {
+            if(other.CompareTag("BallWin")) {
+                if(!_ballInFlask) {
+                    _ballInFlask = true;
+                    BallWon?.Invoke();
+                }
             }
         }
     }
