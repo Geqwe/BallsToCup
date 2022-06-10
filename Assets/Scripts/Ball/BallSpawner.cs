@@ -21,16 +21,14 @@ namespace Ball {
             _spawnWaitForSeconds = new WaitForSeconds(_spawnWaitingTime);
         }
 
-        private void Start() {
-            _levelManager = FindObjectOfType<LevelManager>();
-        }
-
         private void OnEnable() {
-            LevelManager.LevelStart += OnLevelStart_StartSpawning;
+            _levelManager = FindObjectOfType<LevelManager>();
+
+            _levelManager.LevelStart += OnLevelStart_StartSpawning;
         }
 
         private void OnDisable() {
-            LevelManager.LevelStart -= OnLevelStart_StartSpawning;
+            _levelManager.LevelStart -= OnLevelStart_StartSpawning;
         }
 
         private void OnLevelStart_StartSpawning() {

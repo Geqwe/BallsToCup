@@ -7,4 +7,5 @@ public class LevelProperties
     public int AmountOfBallsNeededToWin;
     public GameObject TubePrefab;
     public Vector3 TubePosition;
+    public Color BackgroundColor;
 }

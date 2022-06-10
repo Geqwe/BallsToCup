@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private LevelProperties[] _levelProperties;
     public LevelProperties CurrentLevelProperties;
-    public static event Action LevelStart;
+    public event Action LevelStart, LevelInitialize;
     private UiManager _uiManager;
 
     void Awake()
@@ -17,6 +17,11 @@ public class LevelManager : MonoBehaviour
     private void InitializeLevel() {
         CurrentLevelProperties = _levelProperties[PlayerPrefs.GetInt("Level",0)];
         Instantiate(CurrentLevelProperties.TubePrefab, CurrentLevelProperties.TubePosition, Quaternion.identity);
+    }
+
+    private void Start()
+    {
+        LevelInitialize?.Invoke();
     }
 
     private void OnEnable() {
