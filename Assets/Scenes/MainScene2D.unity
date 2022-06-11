@@ -1047,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3585096434803593227, guid: d82bbd43868cc6b4f8bb212336502ed2, type: 3}
       propertyPath: _levelProperties.Array.data[0].AmountOfBallsNeededToWin
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3585096434803593227, guid: d82bbd43868cc6b4f8bb212336502ed2, type: 3}
       propertyPath: _levelProperties.Array.data[1].AmountOfBallsNeededToWin
